@@ -30,7 +30,7 @@ jobs:
           gradle-version: '8.7'
 
       - name: Build debug APK
-        run: gradle assembleDebug
+        run: gradle assembleDebug -PciBuildNumber=${{ github.run_number }}
 
       - name: Upload APK
         uses: actions/upload-artifact@v4

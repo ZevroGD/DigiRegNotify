@@ -10,7 +10,7 @@ messages and timetable changes.
 
 ## Install
 
-1. On GitHub, open this repository's **Releases** page (right-hand side of the repo page) and
+1. On GitHub, open this repository's [**Releases**](https://github.com/HomoHabibiGD/DigiRegNotify/releases) page (right-hand side of the repo page) and
    pick the **latest** release.
 2. Under **Assets**, download `RegisterPlus-<version>.apk` to your phone. (The repo is private,
    so you need to be logged into GitHub in your phone's browser.)
@@ -95,3 +95,4 @@ inside the zip is only a reference.
 - If the school changes its website or API, parts of the app can stop working until the
   requests are captured again.
 - It is a debug build, signed with the project's fixed key so that updates install over each other.
+

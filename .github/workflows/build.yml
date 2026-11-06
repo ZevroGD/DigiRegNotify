@@ -3,7 +3,16 @@ name: Build APK
 on:
   push:
     branches: [ main ]
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      release:
+        description: 'Publish as a GitHub release (uses RELEASE_NOTES.md from the zip)'
+        type: boolean
+        default: false
+
+# Needed so the release step can create a release and its tag.
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -22,7 +31,10 @@ jobs:
         id: ver
         run: |
           base=$(grep '^appVersionBase=' gradle.properties | cut -d= -f2 | tr -d '\r')
-          echo "base=${base:-1.0}" >> "$GITHUB_OUTPUT"
+          offset=$(grep '^appBuildOffset=' gradle.properties | cut -d= -f2 | tr -d '\r')
+          patch=$(( ${{ github.run_number }} - ${offset:-0} ))
+          if [ "$patch" -lt 0 ]; then patch=0; fi
+          echo "version=${base:-1.0}.$patch" >> "$GITHUB_OUTPUT"
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4
@@ -39,10 +51,19 @@ jobs:
         run: gradle assembleDebug -PciBuildNumber=${{ github.run_number }}
 
       - name: Name the APK
-        run: cp app/build/outputs/apk/debug/app-debug.apk RegisterPlus-${{ steps.ver.outputs.base }}.${{ github.run_number }}.apk
+        run: cp app/build/outputs/apk/debug/app-debug.apk RegisterPlus-${{ steps.ver.outputs.version }}.apk
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: RegisterPlus-${{ steps.ver.outputs.base }}.${{ github.run_number }}
-          path: RegisterPlus-${{ steps.ver.outputs.base }}.${{ github.run_number }}.apk
+          name: RegisterPlus-${{ steps.ver.outputs.version }}
+          path: RegisterPlus-${{ steps.ver.outputs.version }}.apk
+
+      - name: Publish release
+        if: ${{ inputs.release }}
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.ver.outputs.version }}
+          name: Register+ ${{ steps.ver.outputs.version }}
+          body_path: RELEASE_NOTES.md
+          files: RegisterPlus-${{ steps.ver.outputs.version }}.apk

@@ -3,6 +3,9 @@ name: Build APK
 on:
   push:
     branches: [ main ]
+    # Only uploading the zip starts a build; editing the README or this file does not.
+    paths:
+      - 'DigiRegNotify.zip'
   workflow_dispatch:
     inputs:
       release:
@@ -60,7 +63,9 @@ jobs:
           path: RegisterPlus-${{ steps.ver.outputs.version }}.apk
 
       - name: Publish release
-        if: ${{ inputs.release }}
+        # Release when started by hand with the box ticked, or when the commit message that
+        # uploaded the zip contains [release].
+        if: ${{ inputs.release || contains(github.event.head_commit.message, '[release]') }}
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ steps.ver.outputs.version }}

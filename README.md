@@ -10,7 +10,7 @@ messages and timetable changes.
 
 ## Install
 
-1. On GitHub, open this repository's [**Releases**](https://github.com/HomoHabibiGD/DigiRegNotify/releases) page (right-hand side of the repo page) and
+1. On GitHub, open this repository's **Releases** page (right-hand side of the repo page) and
    pick the **latest** release.
 2. Under **Assets**, download `RegisterPlus-<version>.apk` to your phone. (The repo is private,
    so you need to be logged into GitHub in your phone's browser.)
@@ -51,11 +51,12 @@ one is old, one of the settings above is usually the reason.
 - **Edit and delete markers**: an ⓘ on edited homework shows before and after; deleted homework is
   marked on its due day.
 - **History**: the past month of homework, marks and teacher notes.
-- **Marks**: chart and per-subject averages; tap a subject for its exact marks.
+- **Marks**: chart and per-subject averages; tap a subject for its exact marks. Tap the chart to open
+  it full screen and drag along it to see each day's marks.
 - **Timetable**: week view with lesson details.
 - **Notifications**: new homework, new marks, new messages and timetable changes. Each kind
   can be switched off in Settings.
-- **Themes**: several colour palettes, a Custom theme (needs Android 11+), AMOLED black, and
+- **Themes**: several colour palettes, a Custom theme (pick any two colours on a colour wheel or with a hex code), AMOLED black, and
   your own names and colours for subjects.
 
 ## If something goes wrong
@@ -73,11 +74,15 @@ Open **Settings → Developer menu**:
 
 Builds run on GitHub Actions; no Android Studio is needed.
 
-1. Replace `DigiRegNotify.zip` in the repository with the new zip and push to `main`.
+1. Replace `DigiRegNotify.zip` in the repository with the new zip and commit it to `main`.
+   Only the zip starts a build; editing the README or the workflow does not.
 2. The **Build APK** workflow builds the app. The APK is attached to the run under **Actions**.
-3. To publish a **release**: **Actions → Build APK → Run workflow**, tick **Publish as a
-   GitHub release**, and run it. It creates a release `v<version>` with the APK and the text
-   of `RELEASE_NOTES.md` (which is inside the zip). Normal pushes do not create releases.
+3. To publish a **release** from that same run, put `[release]` in the commit message when you
+   upload the zip (for example `1.2 [release]`). It creates a release `v<version>` with the APK
+   and the text of `RELEASE_NOTES.md` (which is inside the zip). Without `[release]` you get a
+   plain build only.
+   (Alternative: **Actions → Build APK → Run workflow** with **Publish as a GitHub release**
+   ticked. That starts a second build, so it uses up another build number.)
 
 **Version numbers**: set in `gradle.properties` inside the zip.
 
@@ -91,8 +96,10 @@ inside the zip is only a reference.
 
 ## Notes and limits
 
+- The Custom theme: Android themes can't take colours chosen while the app runs, so the app has 204
+  prepared colours (24 hues in 8 tones, plus greys) and uses the one closest to what you pick. The
+  picker keeps your exact pick and previews the match that is really used.
 - Built for one school (`franziskanergymnasium.digitalesregister.it`) and one account, by design.
 - If the school changes its website or API, parts of the app can stop working until the
   requests are captured again.
 - It is a debug build, signed with the project's fixed key so that updates install over each other.
-

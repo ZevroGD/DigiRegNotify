@@ -1,6 +1,6 @@
 # Register+
 
-An unofficial Android client for **Digitales Register** (Franziskanergymnasium Bozen). It signs
+An unofficial Android client for [Digitales Register](https://digitalesregister.it) (Franziskanergymnasium Bozen). It signs
 in with your own account, checks in the background, and notifies you about new homework, marks,
 messages and timetable changes.
 
@@ -10,9 +10,9 @@ messages and timetable changes.
 
 ## Install
 
-1. On GitHub, open this repository's **Releases** page (right-hand side of the repo page) and
+1. On GitHub, open this repository's [Releases page](https://github.com/ZevroGD/DigiRegNotify/releases) and
    pick the **latest** release.
-2. Under **Assets**, download `RegisterPlus-<version>.apk` to your phone. (The repo is private,
+2. Under **Assets**, download the APK for your device to your phone. (The repo is private,
    so you need to be logged into GitHub in your phone's browser.)
 3. Open the downloaded file. Android will ask you to allow **Install unknown apps** for the app
    you opened it with (Chrome, Files, …); allow it once, then tap **Install**.
@@ -72,11 +72,11 @@ Open **Settings → Developer menu**:
 
 ## For the maintainer: building and releasing
 
-Builds run on GitHub Actions; no Android Studio is needed.
+Builds run on [GitHub Actions](https://github.com/ZevroGD/DigiRegNotify/actions), no Android Studio is needed.
 
-1. Replace `DigiRegNotify.zip` in the repository with the new zip and commit it to `main`.
+1. Replace [DigiRegNotify.zip](https://github.com/ZevroGD/DigiRegNotify/blob/main/DigiRegNotify.zip) in the repository with the new zip and commit it to `main`.
    Only the zip starts a build; editing the README or the workflow does not.
-2. The **Build APK** workflow builds the app. The APK is attached to the run under **Actions**.
+2. The [Build APK workflow](https://github.com/ZevroGD/DigiRegNotify/actions/workflows/build.yml) builds the app. The APK is attached to the run under **Actions**.
 3. To publish a **release** from that same run, put `[release]` in the commit message when you
    upload the zip (for example `1.2 [release]`). It creates a release `v<version>` with the APK
    and the text of `RELEASE_NOTES.md` (which is inside the zip). Without `[release]` you get a
@@ -91,7 +91,7 @@ Builds run on GitHub Actions; no Android Studio is needed.
   `x.y.0`. When you change `appVersionBase`, set `appBuildOffset` to the run number the next
   build will get (the last run's `#N`, plus one).
 
-The workflow file in the **repository** (`.github/workflows/`) is the one GitHub runs; the copy
+The workflow file in the repository ([.github/workflows/build.yml](https://github.com/ZevroGD/DigiRegNotify/blob/main/.github/workflows/build.yml)) is the one GitHub runs; the copy
 inside the zip is only a reference.
 
 ## Notes and limits

@@ -25,7 +25,7 @@ The release text lists what changed in that version. The version shows at the to
 ## First start
 
 1. Enter your Digitales Register username and password and choose how often to check
-   (1–24 hours, default 2). Tap **Sign in and start checking**.
+   (1–24 hours, default 2). Tap **Sign in**.
 2. Allow **notifications** when Android asks.
 3. On Android 12 and newer you are sent to a settings page to allow **exact alarms**. Allow it,
    otherwise checks still run but may arrive late.
@@ -58,6 +58,34 @@ one is old, one of the settings above is usually the reason.
   can be switched off in Settings.
 - **Themes**: several colour palettes, a Custom theme (pick any two colours on a colour wheel or with a hex code), AMOLED black, and
   your own names and colours for subjects.
+
+## Updates from inside the app (optional)
+
+The app can find and install new releases for you, so you don't have to open GitHub. The
+repository is private, so it needs a read-only token:
+
+1. On GitHub: **Settings → Developer settings → Personal access tokens → Fine-grained tokens →
+   Generate new token**.
+2. **Repository access**: only this repository. **Permissions → Repository permissions →
+   Contents**: *Read-only*. Generate and copy the token.
+3. In the app: **Settings → Updates → GitHub access**, check the repository name (`owner/name`),
+   paste the token and save.
+
+How it works:
+
+- With **Check automatically** on, the app looks for a new release about twice a day (during its
+  normal background check) and sends one notification per new version.
+- Tapping the notification, or simply opening the app, shows a popup with the version, the release
+  notes and a **Download** button (at most about twice a day, so it doesn't nag). **Later** closes it.
+- **Check for update** in Settings does the same check on demand.
+- When the download finishes, the APK is opened with the installer chosen under
+  **Settings → Developer menu → Update installer**. If none is chosen it uses the system installer,
+  which first asks once to allow installing from Register+.
+- Nothing is ever installed without you pressing the install button.
+
+The token is kept encrypted on the phone. It can read the repository's contents (including the
+source and the signing key), so revoke it on GitHub if you lose the phone. GitHub tokens expire
+(at most after a year); if checks start failing with "rejected the token", make a new one.
 
 ## If something goes wrong
 
@@ -96,9 +124,10 @@ inside the zip is only a reference.
 
 ## Notes and limits
 
-- The Custom theme: Android themes can't take colours chosen while the app runs, so the app has 204
-  prepared colours (24 hues in 8 tones, plus greys) and uses the one closest to what you pick. The
-  picker keeps your exact pick and previews the match that is really used.
+- The Custom theme: Android themes can't take colours chosen while the app runs, so the app has 1,728
+  prepared colours (12 levels per red, green and blue channel) and uses the one closest to what you
+  pick, never more than about 20 steps away. The picker keeps your exact pick and previews the match
+  that is really used.
 - Built for one school (`franziskanergymnasium.digitalesregister.it`) and one account, by design.
 - If the school changes its website or API, parts of the app can stop working until the
   requests are captured again.

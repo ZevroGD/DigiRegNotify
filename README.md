@@ -79,8 +79,10 @@ How it works:
   notes and a **Download** button (at most about twice a day, so it doesn't nag). **Later** closes it.
 - **Check for update** in Settings does the same check on demand.
 - When the download finishes, the APK is opened with the installer chosen under
-  **Settings → Developer menu → Update installer**. If none is chosen it uses the system installer,
-  which first asks once to allow installing from Register+.
+  **Settings → Developer menu → Update installer**. The list shows apps that offer to take an APK;
+  if yours isn't in it, choose *Enter package name…* and type its package name. If none is chosen
+  (or the chosen app can't take the file) it uses the system installer, which first asks once to
+  allow installing from Register+.
 - Nothing is ever installed without you pressing the install button.
 
 The token is kept encrypted on the phone. It can read the repository's contents (including the
@@ -114,7 +116,7 @@ Builds run on [GitHub Actions](https://github.com/ZevroGD/DigiRegNotify/actions)
 
 **Version numbers**: set in `gradle.properties` inside the zip.
 
-- `appVersionBase` is the first two numbers (`1.1`).
+- `appVersionBase` is the first two numbers (`1.2`).
 - The last number is the GitHub run number minus `appBuildOffset`, so a new series starts at
   `x.y.0`. When you change `appVersionBase`, set `appBuildOffset` to the run number the next
   build will get (the last run's `#N`, plus one).

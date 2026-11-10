@@ -4,10 +4,6 @@ An unofficial Android client for [Digitales Register](https://digitalesregister.
 in with your own account, checks in the background, and notifies you about new homework, marks,
 messages and timetable changes.
 
-> **Personal use only.** It logs in as you, with credentials stored encrypted on your own
-> phone. Keep this repository **private**: the source contains your school's login address
-> and the signing key (`app/debug.keystore`) that every APK is signed with.
-
 ## Install
 
 1. On GitHub, open this repository's [Releases page](https://github.com/ZevroGD/DigiRegNotify/releases) and

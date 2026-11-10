@@ -57,8 +57,7 @@ one is old, one of the settings above is usually the reason.
 
 ## Updates from inside the app (optional)
 
-The app can find and install new releases for you, so you don't have to open GitHub. The
-repository is private, so it needs a read-only token:
+The app can find and install new releases for you, so you don't have to open GitHub. Using a token is optional to get higher GitHub rates. 
 
 1. On GitHub: **Settings → Developer settings → Personal access tokens → Fine-grained tokens →
    Generate new token**.

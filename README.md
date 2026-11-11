@@ -1,6 +1,6 @@
 # Register+
 
-An unofficial Android client for [Digitales Register](https://digitalesregister.it) (Franziskanergymnasium Bozen). It signs
+An unofficial Android client for [Digitales Register](https://digitalesregister.it). It signs
 in with your own account, checks in the background, and notifies you about new homework, marks,
 messages and timetable changes.
 
@@ -8,8 +8,7 @@ messages and timetable changes.
 
 1. On GitHub, open this repository's [Releases page](https://github.com/ZevroGD/DigiRegNotify/releases) and
    pick the **latest** release.
-2. Under **Assets**, download the APK for your device to your phone. (The repo is private,
-   so you need to be logged into GitHub in your phone's browser.)
+2. Under **Assets**, download the APK for your device to your phone.
 3. Open the downloaded file. Android will ask you to allow **Install unknown apps** for the app
    you opened it with (Chrome, Files, …); allow it once, then tap **Install**.
 4. Updates work the same way: install a newer APK over the old one. Your login and settings
@@ -21,7 +20,7 @@ The release text lists what changed in that version. The version shows at the to
 ## First start
 
 1. Enter your Digitales Register username and password and choose how often to check
-   (1–24 hours, default 2). Tap **Sign in**.
+   (15 minutes to 24 hours, default 2 hours). Tap **Sign in**.
 2. Allow **notifications** when Android asks.
 3. On Android 12 and newer you are sent to a settings page to allow **exact alarms**. Allow it,
    otherwise checks still run but may arrive late.
@@ -36,7 +35,7 @@ Register+ in the phone's app settings:
 - **Battery saver / battery usage**: *No restrictions*
 - In the recent-apps view, **lock** the app (long-press its card → Lock)
 
-**Settings** shows when the last check and the last *background* check ran. If the background
+**Settings → Developer menu → Status** shows when the last check and the last *background* check ran. If the background
 one is old, one of the settings above is usually the reason.
 
 ## What it does
@@ -50,21 +49,19 @@ one is old, one of the settings above is usually the reason.
 - **Marks**: chart and per-subject averages; tap a subject for its exact marks. Tap the chart to open
   it full screen and drag along it to see each day's marks.
 - **Timetable**: week view with lesson details.
-- **Notifications**: new homework, new marks, new messages and timetable changes. Each kind
+- **Notifications**: new homework, new marks, new messages and changed timetable hours (with before and after). Each kind
   can be switched off in Settings.
 - **Themes**: several colour palettes, a Custom theme (pick any two colours on a colour wheel or with a hex code), AMOLED black, and
   your own names and colours for subjects.
 
-## Updates from inside the app (optional)
+## Updates from inside the app
 
-The app can find and install new releases for you, so you don't have to open GitHub. Using a token is optional to get higher GitHub rates. 
+The app can find and install new releases for you, so you don't have to open GitHub. The
+repository is public and built in, so there is nothing to set up.
 
-1. On GitHub: **Settings → Developer settings → Personal access tokens → Fine-grained tokens →
-   Generate new token**.
-2. **Repository access**: only this repository. **Permissions → Repository permissions →
-   Contents**: *Read-only*. Generate and copy the token.
-3. In the app: **Settings → Updates → GitHub access**, check the repository name (`owner/name`),
-   paste the token and save.
+Optional: a GitHub token raises GitHub's request limit, which only matters if checks report
+that the limit is reached. In **Settings → Updates → GitHub access**, tap **Create token on GitHub**,
+generate a token (it needs no permissions) and paste it into the field.
 
 How it works:
 
@@ -80,9 +77,9 @@ How it works:
   allow installing from Register+.
 - Nothing is ever installed without you pressing the install button.
 
-The token is kept encrypted on the phone. It can read the repository's contents (including the
-source and the signing key), so revoke it on GitHub if you lose the phone. GitHub tokens expire
-(at most after a year); if checks start failing with "rejected the token", make a new one.
+The token, if you add one, is kept encrypted on the phone. Revoke it on GitHub if you lose the
+phone. Tokens expire (at most after a year); if checks fail with "rejected the token", make a
+new one or remove it under **GitHub access**.
 
 ## If something goes wrong
 
@@ -103,7 +100,7 @@ Builds run on [GitHub Actions](https://github.com/ZevroGD/DigiRegNotify/actions)
    Only the zip starts a build; editing the README or the workflow does not.
 2. The [Build APK workflow](https://github.com/ZevroGD/DigiRegNotify/actions/workflows/build.yml) builds the app. The APK is attached to the run under **Actions**.
 3. To publish a **release** from that same run, put `[release]` in the commit message when you
-   upload the zip (for example `1.2 [release]`). It creates a release `v<version>` with the APK
+   upload the zip (for example `1.3 [release]`). It creates a release `v<version>` with the APK
    and the text of `RELEASE_NOTES.md` (which is inside the zip). Without `[release]` you get a
    plain build only.
    (Alternative: **Actions → Build APK → Run workflow** with **Publish as a GitHub release**
@@ -111,7 +108,7 @@ Builds run on [GitHub Actions](https://github.com/ZevroGD/DigiRegNotify/actions)
 
 **Version numbers**: set in `gradle.properties` inside the zip.
 
-- `appVersionBase` is the first two numbers (`1.2`).
+- `appVersionBase` is the first two numbers (`1.3`).
 - The last number is the GitHub run number minus `appBuildOffset`, so a new series starts at
   `x.y.0`. When you change `appVersionBase`, set `appBuildOffset` to the run number the next
   build will get (the last run's `#N`, plus one).
@@ -123,9 +120,8 @@ inside the zip is only a reference.
 
 - The Custom theme: Android themes can't take colours chosen while the app runs, so the app has 1,728
   prepared colours (12 levels per red, green and blue channel) and uses the one closest to what you
-  pick, never more than about 20 steps away. The picker keeps your exact pick and previews the match
-  that is really used.
-- Built for one school (`franziskanergymnasium.digitalesregister.it`) and one account, by design.
+  pick, never more than about 20 steps away. The picker keeps and previews your exact pick; the
+  snapping happens only inside the theme.
 - If the school changes its website or API, parts of the app can stop working until the
   requests are captured again.
 - It is a debug build, signed with the project's fixed key so that updates install over each other.
